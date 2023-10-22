@@ -7,6 +7,8 @@ import com.project.carrental.model.enums.TransmissionType;
 import jakarta.persistence.*;
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 @Entity
 @Table(name = "cars")
@@ -23,9 +25,9 @@ public class Car {
 
     private String model;
 
-    private int year;
+    private Integer productionYear;
 
-    private int power;
+    private Integer power;
 
     @Enumerated(EnumType.STRING)
     private FuelType fuelType;
@@ -39,4 +41,11 @@ public class Car {
     @OneToOne
     @JoinColumn(name = "price_id", referencedColumnName = "id")
     private Price price;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "category_id", referencedColumnName = "id")
+    private Category category;
+
+    @OneToMany(mappedBy = "car")
+    private List<Reservation> reservations;
 }
