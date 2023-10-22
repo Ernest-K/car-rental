@@ -1,12 +1,14 @@
 package com.project.carrental.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-
-import java.util.List;
+import lombok.NoArgsConstructor;
 
 @Data
+@NoArgsConstructor
+@AllArgsConstructor
 @Builder
 @Entity
 @Table(name = "categories")
@@ -17,7 +19,4 @@ public class Category {
     private Long id;
 
     private String name;
-
-    @OneToMany(mappedBy = "category")
-    private List<Car> cars;
 }
