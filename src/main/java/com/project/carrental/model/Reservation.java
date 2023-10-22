@@ -1,11 +1,13 @@
 package com.project.carrental.model;
 
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.Calendar;
 
 @Data
+@Builder
 @Entity
 @Table(name = "reservations")
 public class Reservation {

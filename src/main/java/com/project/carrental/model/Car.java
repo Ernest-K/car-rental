@@ -5,11 +5,13 @@ import com.project.carrental.model.enums.FuelType;
 import com.project.carrental.model.enums.Status;
 import com.project.carrental.model.enums.TransmissionType;
 import jakarta.persistence.*;
+import lombok.Builder;
 import lombok.Data;
 
 import java.util.List;
 
 @Data
+@Builder
 @Entity
 @Table(name = "cars")
 public class Car {
@@ -42,7 +44,7 @@ public class Car {
     @JoinColumn(name = "price_id", referencedColumnName = "id")
     private Price price;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "category_id", referencedColumnName = "id")
     private Category category;
 
