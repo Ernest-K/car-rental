@@ -80,4 +80,36 @@ public class CarServiceImpl implements CarService {
 
         return carMapper.carToCarResponse(car);
     }
+
+    @Override
+    public CarResponse updateCar(Long carId, CarRequest carRequest) {
+        Car car = carRepository.findById(carId).get();
+        Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
+        Price price = car.getPrice();
+
+        car.setStatus(Status.valueOf(carRequest.getStatus().toUpperCase()));
+        car.setMake(carRequest.getMake());
+        car.setModel(carRequest.getModel());
+        car.setProductionYear(carRequest.getProductionYear());
+        car.setPower(carRequest.getPower());
+        car.setFuelType(FuelType.valueOf(carRequest.getFuelType().toUpperCase()));
+        car.setTransmissionType(TransmissionType.valueOf(carRequest.getTransmissionType().toUpperCase()));
+        car.setDriveType(DriveType.valueOf(carRequest.getDriveType().toUpperCase()));
+        price.setPerDay(carRequest.getPricePerDay());
+        price.setTwoToFourDays(carRequest.getPriceForTwoToFourDays());
+        price.setPerWeek(carRequest.getPricePerWeek());
+        car.setCategory(category);
+
+        carRepository.save(car);
+
+        return carMapper.carToCarResponse(car);
+    }
+
+    @Override
+    public void deleteCar(Long carId) {
+        Car car = carRepository.findById(carId).get();
+
+        carRepository.delete(car);
+
+    }
 }

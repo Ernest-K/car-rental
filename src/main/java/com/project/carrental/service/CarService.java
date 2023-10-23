@@ -10,4 +10,6 @@ public interface CarService {
     List<CarResponse> getCars();
     List<CarResponse> getCarsByCategory(String categoryName);
     CarResponse createCar(CarRequest carRequest);
+    CarResponse updateCar(Long carId, CarRequest carRequest);
+    void deleteCar(Long carId);
 }
