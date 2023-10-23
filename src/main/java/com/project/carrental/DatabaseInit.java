@@ -1,8 +1,6 @@
 package com.project.carrental;
 
-import com.project.carrental.model.Car;
-import com.project.carrental.model.Category;
-import com.project.carrental.model.Price;
+import com.project.carrental.model.*;
 import com.project.carrental.model.enums.DriveType;
 import com.project.carrental.model.enums.FuelType;
 import com.project.carrental.model.enums.Status;
@@ -11,6 +9,8 @@ import com.project.carrental.repository.*;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
+
+import java.time.LocalDate;
 
 @RequiredArgsConstructor
 @Component
@@ -47,6 +47,24 @@ public class DatabaseInit {
                 .price(price)
                 .category(category).build();
         carRepository.save(car);
+
+        Driver driver = Driver.builder()
+                .firstName("John")
+                .lastName("Doe")
+                .email("john@doe.com")
+                .phoneNumber("123456789")
+                .build();
+
+        driverRepository.save(driver);
+
+        Reservation reservation = Reservation.builder()
+                .car(car)
+                .startDate(LocalDate.now())
+                .endDate(LocalDate.now().plusDays(3))
+                .driver(driver)
+                .build();
+
+        reservationRepository.save(reservation);
 
     }
 

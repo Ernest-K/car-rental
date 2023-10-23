@@ -5,7 +5,10 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
+import java.time.LocalDate;
 import java.util.Calendar;
 
 @Data
@@ -20,15 +23,16 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
     private Car car;
 
     @Temporal(TemporalType.DATE)
-    private Calendar startDate;
+    private LocalDate startDate;
 
     @Temporal(TemporalType.DATE)
-    private Calendar endDate;
+    private LocalDate endDate;
 
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id")

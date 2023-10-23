@@ -12,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class CarResponse {
+    private Long id;
     private Status status;
     private String make;
     private String model;
