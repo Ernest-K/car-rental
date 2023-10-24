@@ -32,14 +32,14 @@ public class DatabaseInit {
         priceRepository.save(price);
 
         Category category = Category.builder()
-                .name("sport").build();
+                .name("coupe").build();
         categoryRepository.save(category);
 
         Car car = Car.builder()
                 .status(Status.AVAILABLE)
                 .make("BMW")
                 .model("series 3")
-                .productionYear(2001)
+                .productionYear(2006)
                 .power(343)
                 .fuelType(FuelType.PETROL)
                 .transmissionType(TransmissionType.MANUAL)

@@ -18,9 +18,9 @@ public class CarController {
 
     private final CarService carService;
 
-    @GetMapping("/cars/{id}")
-    public ResponseEntity<CarResponse> getCarById(@PathVariable Long id){
-        return new ResponseEntity<>(carService.getCarById(id), HttpStatus.OK);
+    @GetMapping("/cars/{carId}")
+    public ResponseEntity<CarResponse> getCarById(@PathVariable Long carId){
+        return new ResponseEntity<>(carService.getCarById(carId), HttpStatus.OK);
     }
 
     @GetMapping("/cars")
@@ -38,15 +38,15 @@ public class CarController {
         return new ResponseEntity<>(carService.createCar(carRequest), HttpStatus.CREATED);
     }
 
-    @PutMapping("/cars/{id}")
-    public ResponseEntity<CarResponse> updateCar(@PathVariable Long id, @RequestBody @Valid CarRequest carRequest){
-        return new ResponseEntity<>(carService.updateCar(id, carRequest), HttpStatus.OK);
+    @PutMapping("/cars/{carId}")
+    public ResponseEntity<CarResponse> updateCar(@PathVariable Long carId, @RequestBody @Valid CarRequest carRequest){
+        return new ResponseEntity<>(carService.updateCar(carId, carRequest), HttpStatus.OK);
     }
 
-    @DeleteMapping("/cars/{id}")
-    public ResponseEntity<String> deleteCar(@PathVariable Long id){
-        carService.deleteCar(id);
-        return new ResponseEntity<>("Car id: " + id + " deleted successfully", HttpStatus.OK);
+    @DeleteMapping("/cars/{carId}")
+    public ResponseEntity<String> deleteCar(@PathVariable Long carId){
+        carService.deleteCar(carId);
+        return new ResponseEntity<>("Car id: " + carId + " deleted successfully", HttpStatus.OK);
     }
 
 }
