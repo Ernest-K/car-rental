@@ -110,6 +110,5 @@ public class CarServiceImpl implements CarService {
         Car car = carRepository.findById(carId).get();
 
         carRepository.delete(car);
-
     }
 }

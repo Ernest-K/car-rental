@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.Check;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -16,22 +17,23 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "reservations")
+@Check(constraints = "start_date <= end_date")
 public class Reservation {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name = "car_id", referencedColumnName = "id")
-    @OnDelete(action = OnDeleteAction.SET_NULL)
-    private Car car;
-
     @Temporal(TemporalType.DATE)
     private LocalDate startDate;
 
     @Temporal(TemporalType.DATE)
     private LocalDate endDate;
+
+    @ManyToOne
+    @JoinColumn(name = "car_id", referencedColumnName = "id")
+    @OnDelete(action = OnDeleteAction.SET_NULL)
+    private Car car;
 
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id")

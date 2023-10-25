@@ -11,7 +11,7 @@ import java.time.LocalDate;
 @Setter
 public class ReservationResponse {
     private Long id;
-    private Car car;
+    private CarResponse car;
     private LocalDate startDate;
     private LocalDate endDate;
     private Driver driver;

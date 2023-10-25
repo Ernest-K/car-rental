@@ -1,8 +1,6 @@
 package com.project.carrental.dto.request;
 
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.Size;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,7 +14,10 @@ import java.time.LocalDate;
 @Builder
 public class ReservationRequest {
 
+    @FutureOrPresent(message = "Start date is not valid")
     private LocalDate startDate;
+
+    @Future(message = "End date is not valid")
     private LocalDate endDate;
 
     @Size(max = 30, message = "First name is too long (max 30 characters)")
@@ -28,9 +29,15 @@ public class ReservationRequest {
     private String lastName;
 
     @Email(message = "Email not valid")
+    @NotBlank(message = "Email is required")
     private String email;
 
     @Size(min = 9, max = 9, message = "Phone number not valid")
     @NotBlank(message = "Phone number is required")
     private String phoneNumber;
+
+    @AssertTrue(message = "End date must be after or equal to start date")
+    public boolean isEndDateValid() {
+        return startDate == null || endDate == null || !endDate.isBefore(startDate);
+    }
 }
