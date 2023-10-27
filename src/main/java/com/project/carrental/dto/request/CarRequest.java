@@ -9,6 +9,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -49,15 +51,15 @@ public class CarRequest {
 
     @Min(0)
     @NotNull(message = "Price per dey is required")
-    private double pricePerDay;
+    private BigDecimal pricePerDay;
 
     @Min(0)
     @NotNull(message = "Price for two to four days is required")
-    private double priceForTwoToFourDays;
+    private BigDecimal priceForTwoToFourDays;
 
     @Min(0)
     @NotNull(message = "Price per week is required")
-    private double pricePerWeek;
+    private BigDecimal pricePerWeek;
 
     @NotNull(message = "Category id is required")
     private Long categoryId;

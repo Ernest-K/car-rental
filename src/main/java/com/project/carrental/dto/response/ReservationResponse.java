@@ -1,10 +1,10 @@
 package com.project.carrental.dto.response;
 
-import com.project.carrental.model.Car;
 import com.project.carrental.model.Driver;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Getter
@@ -15,4 +15,5 @@ public class ReservationResponse {
     private LocalDate startDate;
     private LocalDate endDate;
     private Driver driver;
+    private BigDecimal cost;
 }

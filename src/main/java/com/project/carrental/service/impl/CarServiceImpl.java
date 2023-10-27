@@ -56,9 +56,9 @@ public class CarServiceImpl implements CarService {
         Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
 
         Price price = Price.builder()
-                .perDay(carRequest.getPricePerDay())
-                .twoToFourDays(carRequest.getPriceForTwoToFourDays())
-                .perWeek(carRequest.getPricePerWeek())
+                .forDay(carRequest.getPricePerDay())
+                .forTwoToFourDays(carRequest.getPriceForTwoToFourDays())
+                .forWeek(carRequest.getPricePerWeek())
                 .build();
 
         priceRepository.save(price);
@@ -95,9 +95,9 @@ public class CarServiceImpl implements CarService {
         car.setFuelType(FuelType.valueOf(carRequest.getFuelType().toUpperCase()));
         car.setTransmissionType(TransmissionType.valueOf(carRequest.getTransmissionType().toUpperCase()));
         car.setDriveType(DriveType.valueOf(carRequest.getDriveType().toUpperCase()));
-        price.setPerDay(carRequest.getPricePerDay());
-        price.setTwoToFourDays(carRequest.getPriceForTwoToFourDays());
-        price.setPerWeek(carRequest.getPricePerWeek());
+        price.setForDay(carRequest.getPricePerDay());
+        price.setForTwoToFourDays(carRequest.getPriceForTwoToFourDays());
+        price.setForWeek(carRequest.getPricePerWeek());
         car.setCategory(category);
 
         carRepository.save(car);

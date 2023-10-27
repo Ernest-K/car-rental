@@ -6,10 +6,12 @@ import com.project.carrental.model.enums.FuelType;
 import com.project.carrental.model.enums.Status;
 import com.project.carrental.model.enums.TransmissionType;
 import com.project.carrental.repository.*;
+import com.project.carrental.service.ReservationService;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @RequiredArgsConstructor
@@ -21,14 +23,15 @@ public class DatabaseInit {
     private final DriverRepository driverRepository;
     private final PriceRepository priceRepository;
     private final ReservationRepository reservationRepository;
+    private final ReservationService reservationService;
 
     @PostConstruct
     private void init(){
 
         Price price = Price.builder()
-                .perDay(400.0)
-                .twoToFourDays(300.0)
-                .perWeek(100.0).build();
+                .forDay(BigDecimal.valueOf(400.00))
+                .forTwoToFourDays(BigDecimal.valueOf(300.00))
+                .forWeek(BigDecimal.valueOf(100.00)).build();
         priceRepository.save(price);
 
         Category category = Category.builder()
@@ -62,10 +65,9 @@ public class DatabaseInit {
                 .startDate(LocalDate.now())
                 .endDate(LocalDate.now().plusDays(3))
                 .driver(driver)
+                .cost(reservationService.calculateCost(price, LocalDate.now(), LocalDate.now().plusDays(3)))
                 .build();
 
         reservationRepository.save(reservation);
-
     }
-
 }

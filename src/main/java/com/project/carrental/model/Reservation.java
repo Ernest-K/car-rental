@@ -9,6 +9,7 @@ import org.hibernate.annotations.Check;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 
 @Data
@@ -38,4 +39,6 @@ public class Reservation {
     @OneToOne
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private Driver driver;
+
+    private BigDecimal cost;
 }

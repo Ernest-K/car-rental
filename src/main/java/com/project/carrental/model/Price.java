@@ -7,6 +7,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.math.BigDecimal;
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -19,7 +21,7 @@ public class Price {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private double perDay;
-    private double twoToFourDays;
-    private double perWeek;
+    private BigDecimal forDay;
+    private BigDecimal forTwoToFourDays;
+    private BigDecimal forWeek;
 }

@@ -5,6 +5,7 @@ import com.project.carrental.dto.response.ReservationResponse;
 import com.project.carrental.mapper.ReservationMapper;
 import com.project.carrental.model.Car;
 import com.project.carrental.model.Driver;
+import com.project.carrental.model.Price;
 import com.project.carrental.model.Reservation;
 import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.DriverRepository;
@@ -13,6 +14,9 @@ import com.project.carrental.service.ReservationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -57,6 +61,7 @@ public class ReservationServiceImpl implements ReservationService {
                 .endDate(reservationRequest.getEndDate())
                 .driver(driver)
                 .car(car)
+                .cost(calculateCost(car.getPrice(), reservationRequest.getStartDate(), reservationRequest.getEndDate()))
                 .build();
 
         reservationRepository.save(reservation);
@@ -87,5 +92,19 @@ public class ReservationServiceImpl implements ReservationService {
         Reservation reservation = reservationRepository.findById(reservationId).get();
 
         reservationRepository.delete(reservation);
+    }
+
+    @Override
+    public BigDecimal calculateCost(Price price, LocalDate startDate, LocalDate endDate) {
+        int numberOfDays = startDate.equals(endDate) ? 1 : (int) ChronoUnit.DAYS.between(startDate, endDate) + 1;
+
+        switch (numberOfDays){
+            case 1:
+                return price.getForDay();
+            case 2, 3, 4:
+                return price.getForTwoToFourDays().multiply(BigDecimal.valueOf(numberOfDays));
+            default:
+                return price.getForWeek().multiply(BigDecimal.valueOf(numberOfDays));
+        }
     }
 }
