@@ -4,6 +4,7 @@ import com.project.carrental.dto.request.CategoryRequest;
 import com.project.carrental.model.Category;
 import com.project.carrental.repository.CategoryRepository;
 import com.project.carrental.service.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +28,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public Category updateCategory(Long categoryId, CategoryRequest categoryRequest){
-        Category category = categoryRepository.findById(categoryId).get();
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException("Category id: " + categoryId + " not found"));
 
         category.setName(categoryRequest.getName());
 
@@ -36,7 +37,7 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public void deleteCategory(Long categoryId){
-        Category category = categoryRepository.findById(categoryId).get();
+        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new EntityNotFoundException("Category id: " + categoryId + " not found"));
 
         categoryRepository.delete(category);
     }

@@ -11,6 +11,7 @@ import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.DriverRepository;
 import com.project.carrental.repository.ReservationRepository;
 import com.project.carrental.service.ReservationService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -31,7 +32,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponse getReservationById(Long reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId).get();
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new EntityNotFoundException("Reservation id: " + reservationId + " not found"));
 
         return reservationMapper.reservationToReservationResponse(reservation);
     }
@@ -45,7 +46,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponse createReservation(Long carId, ReservationRequest reservationRequest) {
-        Car car = carRepository.findById(carId).get();
+        Car car = carRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException("Car id: " + carId + " not found"));
 
         Driver driver = Driver.builder()
                 .firstName(reservationRequest.getFirstName())
@@ -71,7 +72,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public ReservationResponse updateReservation(Long reservationId, ReservationRequest reservationRequest) {
-        Reservation reservation = reservationRepository.findById(reservationId).get();
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new EntityNotFoundException("Reservation id: " + reservationId + " not found"));
         Driver driver = reservation.getDriver();
 
         reservation.setStartDate(reservationRequest.getStartDate());
@@ -89,7 +90,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public void deleteReservation(Long reservationId) {
-        Reservation reservation = reservationRepository.findById(reservationId).get();
+        Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new EntityNotFoundException("Reservation id: " + reservationId + " not found"));
 
         reservationRepository.delete(reservation);
     }

@@ -15,6 +15,7 @@ import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.CategoryRepository;
 import com.project.carrental.repository.PriceRepository;
 import com.project.carrental.service.CarService;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -32,7 +33,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDetailResponse getCarDetailById(Long carId) {
-        Car car = carRepository.findById(carId).get();
+        Car car = carRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException("Car id: " + carId + " not found"));
 
         return carMapper.carToCarDetailResponse(car);
     }
@@ -82,8 +83,8 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDetailResponse updateCar(Long carId, CarRequest carRequest) {
-        Car car = carRepository.findById(carId).get();
-        Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
+        Car car = carRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException("Car id: " + carId + " not found"));
+        Category category = categoryRepository.findById(carRequest.getCategoryId()).orElseThrow(() -> new EntityNotFoundException("Category id: " + carRequest.getCategoryId() + " not found"));
         Price price = car.getPrice();
 
         car.setStatus(Status.valueOf(carRequest.getStatus().toUpperCase()));
@@ -106,7 +107,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void deleteCar(Long carId) {
-        Car car = carRepository.findById(carId).get();
+        Car car = carRepository.findById(carId).orElseThrow(() -> new EntityNotFoundException("Car id: " + carId + " not found"));
 
         carRepository.delete(car);
     }
