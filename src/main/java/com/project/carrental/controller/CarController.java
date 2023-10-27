@@ -1,6 +1,7 @@
 package com.project.carrental.controller;
 
 import com.project.carrental.dto.request.CarRequest;
+import com.project.carrental.dto.response.CarDetailResponse;
 import com.project.carrental.dto.response.CarResponse;
 import com.project.carrental.service.CarService;
 import jakarta.validation.Valid;
@@ -19,8 +20,8 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping("/cars/{carId}")
-    public ResponseEntity<CarResponse> getCarById(@PathVariable Long carId){
-        return new ResponseEntity<>(carService.getCarById(carId), HttpStatus.OK);
+    public ResponseEntity<CarDetailResponse> getCarDetailById(@PathVariable Long carId){
+        return new ResponseEntity<>(carService.getCarDetailById(carId), HttpStatus.OK);
     }
 
     @GetMapping("/cars")
@@ -34,12 +35,12 @@ public class CarController {
     }
 
     @PostMapping("/cars")
-    public ResponseEntity<CarResponse> createCar(@RequestBody @Valid CarRequest carRequest){
+    public ResponseEntity<CarDetailResponse> createCar(@RequestBody @Valid CarRequest carRequest){
         return new ResponseEntity<>(carService.createCar(carRequest), HttpStatus.CREATED);
     }
 
     @PutMapping("/cars/{carId}")
-    public ResponseEntity<CarResponse> updateCar(@PathVariable Long carId, @RequestBody @Valid CarRequest carRequest){
+    public ResponseEntity<CarDetailResponse> updateCar(@PathVariable Long carId, @RequestBody @Valid CarRequest carRequest){
         return new ResponseEntity<>(carService.updateCar(carId, carRequest), HttpStatus.OK);
     }
 

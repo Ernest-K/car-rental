@@ -1,6 +1,7 @@
 package com.project.carrental.service.impl;
 
 import com.project.carrental.dto.request.CarRequest;
+import com.project.carrental.dto.response.CarDetailResponse;
 import com.project.carrental.dto.response.CarResponse;
 import com.project.carrental.mapper.CarMapper;
 import com.project.carrental.model.Car;
@@ -14,12 +15,10 @@ import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.CategoryRepository;
 import com.project.carrental.repository.PriceRepository;
 import com.project.carrental.service.CarService;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
@@ -32,10 +31,10 @@ public class CarServiceImpl implements CarService {
     private final CarMapper carMapper;
 
     @Override
-    public CarResponse getCarById(Long carId) {
-        Optional<Car> car = carRepository.findById(carId);
-        car.orElseThrow(() -> new EntityNotFoundException("Car not found"));
-        return carMapper.carToCarResponse(car.get());
+    public CarDetailResponse getCarDetailById(Long carId) {
+        Car car = carRepository.findById(carId).get();
+
+        return carMapper.carToCarDetailResponse(car);
     }
 
     @Override
@@ -52,7 +51,7 @@ public class CarServiceImpl implements CarService {
     }
 
     @Override
-    public CarResponse createCar(CarRequest carRequest) {
+    public CarDetailResponse createCar(CarRequest carRequest) {
         Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
 
         Price price = Price.builder()
@@ -78,11 +77,11 @@ public class CarServiceImpl implements CarService {
 
         carRepository.save(car);
 
-        return carMapper.carToCarResponse(car);
+        return carMapper.carToCarDetailResponse(car);
     }
 
     @Override
-    public CarResponse updateCar(Long carId, CarRequest carRequest) {
+    public CarDetailResponse updateCar(Long carId, CarRequest carRequest) {
         Car car = carRepository.findById(carId).get();
         Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
         Price price = car.getPrice();
@@ -102,7 +101,7 @@ public class CarServiceImpl implements CarService {
 
         carRepository.save(car);
 
-        return carMapper.carToCarResponse(car);
+        return carMapper.carToCarDetailResponse(car);
     }
 
     @Override
