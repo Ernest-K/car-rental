@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { CarDetailInfo } from "../../types/interfaces";
 import { AspectRatio, Button, Container, Table } from "@radix-ui/themes";
 import ParameterTile from "../../components/ParameterTile";
+import carImg from "../../assets/example.jpg";
 
 function CarDetail() {
   const { id } = useParams();
@@ -26,7 +27,7 @@ function CarDetail() {
         <div className="col-span-2">
           <AspectRatio ratio={4 / 3}>
             <img
-              src="https://images.unsplash.com/photo-1479030160180-b1860951d696?&auto=format&fit=crop&w=1200&q=80"
+              src={carImg}
               alt="Car photo"
               style={{
                 objectFit: "cover",
@@ -93,7 +94,6 @@ function CarDetail() {
           </Table.Root>
 
           <Button
-            highContrast
             size={"3"}
             className="w-full"
             disabled={car.status === "UNAVAILABLE"}

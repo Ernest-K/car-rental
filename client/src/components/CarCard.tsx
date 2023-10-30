@@ -6,6 +6,7 @@ import {
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
+import carImg from "../assets/example.jpg";
 
 interface CarCardProps {
   data: CarInfo;
@@ -27,7 +28,7 @@ function CarCard({ data }: CarCardProps) {
       <div className="my-2">
         <AspectRatio ratio={16 / 8}>
           <img
-            src="https://images.unsplash.com/photo-1479030160180-b1860951d696?&auto=format&fit=crop&w=1200&q=80"
+            src={carImg}
             alt="Car photo"
             style={{
               objectFit: "cover",

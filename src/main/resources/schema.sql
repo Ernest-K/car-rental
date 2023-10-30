@@ -72,3 +72,50 @@ alter table
   if exists reservations
 add
   constraint FK7lgjeck6819ssjgdn5fj97rkj foreign key (driver_id) references drivers;
+
+
+--Dodanie informacji o cenach wynajmu
+INSERT INTO prices (for_day, for_two_to_four_days, for_week) VALUES
+  (50.00, 45.00, 300.00),
+  (60.00, 55.00, 350.00),
+  (40.00, 35.00, 250.00),
+  (55.00, 50.00, 320.00),
+  (70.00, 65.00, 400.00),
+  (55.00, 50.00, 320.00),
+  (65.00, 60.00, 380.00),
+  (45.00, 40.00, 280.00),
+  (75.00, 70.00, 450.00);
+
+-- Dodanie typów nadwozi (kategorii) samochodów
+INSERT INTO categories (name) VALUES
+  ('Sedan'),
+  ('SUV'),
+  ('Estate'),
+  ('Hatchback'),
+  ('Coupe');
+
+-- Dodanie informacji o samochodach
+INSERT INTO cars (power, production_year, category_id, price_id, drive_type, fuel_type, make, model, status, transmission_type) VALUES
+  (150, 2022, 1, 1, 'FRONT', 'PETROL', 'Toyota', 'Camry', 'UNAVAILABLE', 'AUTOMATIC'),
+  (120, 2020, 2, 2, 'REAR', 'DIESEL', 'Ford', 'Explorer', 'AVAILABLE', 'AUTOMATIC'),
+  (130, 2021, 3, 3, 'FRONT', 'PETROL', 'Honda', 'Accord', 'AVAILABLE', 'AUTOMATIC'),
+  (110, 2023, 4, 4, 'FRONT', 'HYBRID', 'Toyota', 'Prius', 'AVAILABLE', 'AUTOMATIC'),
+  (160, 2022, 5, 5, 'ALL_WHEEL', 'PETROL', 'BMW', 'M4', 'AVAILABLE', 'AUTOMATIC'),
+  (140, 2020, 2, 6, 'ALL_WHEEL', 'DIESEL', 'Audi', 'Q5', 'UNAVAILABLE', 'AUTOMATIC'),
+  (110, 2021, 1, 7, 'FRONT', 'PETROL', 'Nissan', 'Altima', 'AVAILABLE', 'AUTOMATIC'),
+  (95, 2022, 4, 8, 'FRONT', 'HYBRID', 'Toyota', 'Corolla', 'UNAVAILABLE', 'AUTOMATIC'),
+  (120, 2020, 5, 9, 'FRONT', 'PETROL', 'Mercedes-Benz', 'C-Class', 'AVAILABLE', 'AUTOMATIC');
+
+-- Dodanie informacji o kierowcach
+INSERT INTO drivers (email, first_name, last_name, phone_number) VALUES
+  ('john@example.com', 'John', 'Doe', '123-456-789'),
+  ('jane@example.com', 'Jane', 'Smith', '987-654-321'),
+  ('james@example.com', 'James', 'Johnson', '555-123-456'),
+  ('emily@example.com', 'Emily', 'Brown', '555-987-654');
+
+-- Dodanie informacji o rezerwacjach
+INSERT INTO reservations (cost, start_date, end_date, car_id, driver_id) VALUES
+  (150.00, '2023-10-15', '2023-10-20', 1, 1),
+  (180.00, '2023-11-01', '2023-11-05', 2, 2),
+  (160.00, '2023-12-01', '2023-12-10', 3, 3),
+  (140.00, '2023-10-20', '2023-10-25', 4, 4);

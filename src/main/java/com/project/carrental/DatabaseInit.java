@@ -35,7 +35,7 @@ public class DatabaseInit {
         priceRepository.save(price);
 
         Category category = Category.builder()
-                .name("coupe").build();
+                .name("Cabriolet").build();
         categoryRepository.save(category);
 
         Car car = Car.builder()
