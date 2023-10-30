@@ -15,7 +15,7 @@ function CarCard({ data }: CarCardProps) {
   const { id, status, make, model, price, category } = data;
 
   return (
-    <Card>
+    <Card variant="classic">
       <div className="flex justify-end items-center">
         {status === "UNAVAILABLE" ? (
           <CrossCircledIcon className="w-4 h-4 mr-1 text-red-600" />
@@ -53,13 +53,12 @@ function CarCard({ data }: CarCardProps) {
         </p>
       </div>
       <div className="flex justify-between items-center mt-2">
-        <Button asChild variant="outline" highContrast>
+        <Button asChild variant="outline">
           <Link to={`/cars/${id}`}>
             Details <InfoCircledIcon width="16" height="16" />
           </Link>
         </Button>
         <Button
-          highContrast
           disabled={status === "UNAVAILABLE"}
           asChild={status !== "UNAVAILABLE"}
         >

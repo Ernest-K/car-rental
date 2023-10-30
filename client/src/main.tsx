@@ -8,7 +8,7 @@ import "./theme-config.css";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <Theme appearance="dark" accentColor="gray" className="w-screen">
+    <Theme accentColor="indigo">
       <App />
     </Theme>
   </React.StrictMode>
