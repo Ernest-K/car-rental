@@ -20,13 +20,11 @@ public class CarController {
     private final CarService carService;
 
     @GetMapping("/cars/{carId}")
-    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<CarDetailResponse> getCarDetailById(@PathVariable Long carId){
         return new ResponseEntity<>(carService.getCarDetailById(carId), HttpStatus.OK);
     }
 
     @GetMapping("/cars")
-    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<List<CarResponse>> getCars(){
         return new ResponseEntity<>(carService.getCars(), HttpStatus.OK);
     }

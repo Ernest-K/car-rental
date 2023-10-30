@@ -1,3 +1,5 @@
+import { driveType, fuelType, statusType, transmissionType } from "./types";
+
 export interface CarInfo {
   id: number;
   status: statusType;
@@ -33,7 +35,7 @@ export interface CarDetailInfo {
   category: Category;
 }
 
-type statusType = "AVAILABLE" | "UNAVAILABLE";
-type fuelType = "PETROL" | "DIESEL" | "HYBRID" | "ELECTRIC";
-type transmissionType = "MANUAL" | "AUTOMATIC";
-type driveType = "REAR" | "FRONT" | "ALL_WHEEL";
+// type statusType = "AVAILABLE" | "UNAVAILABLE";
+// type fuelType = "PETROL" | "DIESEL" | "HYBRID" | "ELECTRIC";
+// type transmissionType = "MANUAL" | "AUTOMATIC";
+// type driveType = "REAR" | "FRONT" | "ALL_WHEEL";

@@ -19,7 +19,6 @@ public class CategoryController {
     private final CategoryService categoryService;
 
     @GetMapping("/categories")
-    @CrossOrigin(origins = "http://localhost:5173")
     public ResponseEntity<List<Category>> getCategories(){
         return new ResponseEntity<>(categoryService.getCategories(), HttpStatus.OK);
     }

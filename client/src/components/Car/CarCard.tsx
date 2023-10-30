@@ -1,12 +1,12 @@
 import { AspectRatio, Button, Card } from "@radix-ui/themes";
-import { CarInfo } from "../types/interfaces";
+import { CarInfo } from "../../types/interfaces";
 import {
   CheckCircledIcon,
   CrossCircledIcon,
   InfoCircledIcon,
 } from "@radix-ui/react-icons";
 import { Link } from "react-router-dom";
-import carImg from "../assets/example.jpg";
+import carImg from "../../assets/example.jpg";
 
 interface CarCardProps {
   data: CarInfo;

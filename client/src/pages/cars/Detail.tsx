@@ -4,26 +4,30 @@ import { CarDetailInfo } from "../../types/interfaces";
 import { AspectRatio, Button, Container, Table } from "@radix-ui/themes";
 import ParameterTile from "../../components/ParameterTile";
 import carImg from "../../assets/example.jpg";
+import { ArrowLeftIcon } from "@radix-ui/react-icons";
 
-function CarDetail() {
+function Detail() {
   const { id } = useParams();
   const [car, setCar] = useState<CarDetailInfo>();
 
   useEffect(() => {
-    try {
-      fetch(`http://localhost:8080/api/cars/${id}`)
-        .then((res) => res.json())
-        .then((data) => setCar(data));
-    } catch (error) {
-      console.log("ERROR");
-    }
+    fetch(`http://localhost:8080/api/cars/${id}`)
+      .then((res) => res.json())
+      .then((data) => setCar(data));
   }, []);
 
   return !car ? (
     ""
   ) : (
-    <Container className="px-4">
-      <div className="grid grid-cols-1 gap-6 pt-4 pb-4 md:grid-cols-2 lg:grid-cols-3">
+    <Container className="p-4">
+      <Button asChild variant="ghost">
+        <Link to={"/"} relative="path" className="flex items-center gap-1">
+          <ArrowLeftIcon />
+          Back to cars
+        </Link>
+      </Button>
+
+      <div className="grid grid-cols-1 gap-6 py-4 md:grid-cols-2 lg:grid-cols-3">
         <div className="col-span-2">
           <AspectRatio ratio={4 / 3}>
             <img
@@ -111,4 +115,4 @@ function CarDetail() {
   );
 }
 
-export default CarDetail;
+export default Detail;
