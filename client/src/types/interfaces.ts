@@ -34,8 +34,3 @@ export interface CarDetailInfo {
   price: Price;
   category: Category;
 }
-
-// type statusType = "AVAILABLE" | "UNAVAILABLE";
-// type fuelType = "PETROL" | "DIESEL" | "HYBRID" | "ELECTRIC";
-// type transmissionType = "MANUAL" | "AUTOMATIC";
-// type driveType = "REAR" | "FRONT" | "ALL_WHEEL";

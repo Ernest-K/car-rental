@@ -53,12 +53,9 @@ function Detail() {
               value={car.productionYear!}
             />
             <ParameterTile label="Power" value={car.power!} unit="KM" />
+            <ParameterTile label="Fuel" value={car.fuelType!.toLowerCase()} />
             <ParameterTile
-              label="Fuel type"
-              value={car.fuelType!.toLowerCase()}
-            />
-            <ParameterTile
-              label="Transmission type"
+              label="Transmission"
               value={car.transmissionType!.toLowerCase()}
             />
             <ParameterTile
