@@ -9,11 +9,10 @@ import * as Form from "@radix-ui/react-form";
 import { ArrowLeftIcon, CalendarIcon } from "@radix-ui/react-icons";
 import { Button, Container, TextFieldInput } from "@radix-ui/themes";
 import { format } from "date-fns";
-import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { useForm, SubmitHandler } from "react-hook-form";
+import { useForm, SubmitHandler, Controller } from "react-hook-form";
 
-type Inputs = {
+type ReservationInput = {
   startDate: Date;
   endDate: Date;
   firstName: string;
@@ -24,17 +23,24 @@ type Inputs = {
 
 function Reservation() {
   const { id } = useParams();
-  const [startDate, setStartDate] = useState<Date>();
-  const [endDate, setEndDate] = useState<Date>();
 
   const {
+    control,
     register,
     handleSubmit,
     watch,
+    setValue,
     formState: { errors },
-  } = useForm<Inputs>();
+  } = useForm<ReservationInput>({
+    defaultValues: {
+      startDate: new Date(),
+      endDate: new Date(),
+    },
+  });
 
-  const onSubmit: SubmitHandler<Inputs> = (data) => console.log(data);
+  const startDateWatch = watch("startDate");
+
+  const onSubmit: SubmitHandler<ReservationInput> = (data) => console.log(data);
 
   return (
     <Container className="p-4">
@@ -49,86 +55,95 @@ function Reservation() {
           <div className="flex flex-col gap-3">
             <div className="flex flex-col md:flex-row gap-3">
               <Form.Field className="FormField grow basis-1/2" name="startDate">
-                <div className="flex justify-between items-end mb-2">
-                  <Form.Label className="FormLabel">Start date</Form.Label>
-                  <Form.Message
-                    className="FormMessage text-sm"
-                    match="valueMissing"
-                  >
-                    Please enter start date
-                  </Form.Message>
-                </div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Form.Control asChild>
-                      <Button
-                        color="gray"
-                        variant={"outline"}
-                        className={cn("w-full pl-3 text-left font-normal")}
-                      >
-                        {startDate ? (
-                          format(startDate, "PP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </Form.Control>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={startDate}
-                      onSelect={setStartDate}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                      required
-                    />
-                  </PopoverContent>
-                </Popover>
+                <Controller
+                  control={control}
+                  name="startDate"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <div className="flex flex-col gap-2">
+                      <Form.Label className="FormLabel">Start date</Form.Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Form.Control asChild>
+                            <Button
+                              color="gray"
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </Form.Control>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={(e) => {
+                              field.onChange(e);
+                              setValue("endDate", e!);
+                            }}
+                            disabled={(date) => date < new Date()}
+                            initialFocus
+                            required
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  )}
+                />
               </Form.Field>
               <Form.Field className="FormField grow basis-1/2" name="endDate">
-                <div className="flex justify-between items-end mb-2">
-                  <Form.Label className="FormLabel">End date</Form.Label>
-                  <Form.Message
-                    className="FormMessage text-sm"
-                    match="valueMissing"
-                  >
-                    Please enter end date
-                  </Form.Message>
-                </div>
-                <Popover>
-                  <PopoverTrigger asChild>
-                    <Form.Control asChild>
-                      <Button
-                        color="gray"
-                        variant={"outline"}
-                        className={cn("w-full pl-3 text-left font-normal")}
-                      >
-                        {endDate ? (
-                          format(endDate, "PP")
-                        ) : (
-                          <span>Pick a date</span>
-                        )}
-                        <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
-                      </Button>
-                    </Form.Control>
-                  </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0" align="start">
-                    <Calendar
-                      mode="single"
-                      selected={endDate}
-                      onSelect={setEndDate}
-                      disabled={(date) =>
-                        date > new Date() || date < new Date("1900-01-01")
-                      }
-                      initialFocus
-                      required
-                    />
-                  </PopoverContent>
-                </Popover>
+                <Controller
+                  control={control}
+                  name="endDate"
+                  rules={{
+                    required: true,
+                  }}
+                  render={({ field }) => (
+                    <div className="flex flex-col gap-2">
+                      <Form.Label className="FormLabel">End date</Form.Label>
+                      <Popover>
+                        <PopoverTrigger asChild>
+                          <Form.Control asChild>
+                            <Button
+                              color="gray"
+                              variant={"outline"}
+                              className={cn(
+                                "w-full pl-3 text-left font-normal"
+                              )}
+                            >
+                              {field.value ? (
+                                format(field.value, "PP")
+                              ) : (
+                                <span>Pick a date</span>
+                              )}
+                              <CalendarIcon className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                          </Form.Control>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0" align="start">
+                          <Calendar
+                            mode="single"
+                            selected={field.value}
+                            onSelect={field.onChange}
+                            disabled={(date) => date < startDateWatch}
+                            initialFocus
+                            required
+                          />
+                        </PopoverContent>
+                      </Popover>
+                    </div>
+                  )}
+                />
               </Form.Field>
             </div>
             <Form.Field className="FormField" name="firstName">
@@ -143,7 +158,7 @@ function Reservation() {
               </div>
               <Form.Control asChild>
                 <TextFieldInput
-                  {...register("firstName")}
+                  {...register("firstName", { required: true })}
                   placeholder="John"
                   required
                 />
