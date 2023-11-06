@@ -1,8 +1,6 @@
 package com.project.carrental.controller;
 
-import com.project.carrental.dto.request.CarRequest;
 import com.project.carrental.dto.request.ReservationRequest;
-import com.project.carrental.dto.response.CarResponse;
 import com.project.carrental.dto.response.ReservationResponse;
 import com.project.carrental.service.ReservationService;
 import jakarta.validation.Valid;
