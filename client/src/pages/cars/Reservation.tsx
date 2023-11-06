@@ -11,6 +11,8 @@ import { Button, Container, TextFieldInput } from "@radix-ui/themes";
 import { format } from "date-fns";
 import { Link, useParams } from "react-router-dom";
 import { useForm, SubmitHandler, Controller } from "react-hook-form";
+import { useEffect, useState } from "react";
+import { CarDetailInfo, Price } from "@/types/interfaces";
 
 type ReservationInput = {
   startDate: Date;
@@ -23,6 +25,7 @@ type ReservationInput = {
 
 function Reservation() {
   const { id } = useParams();
+  const [carDetail, setCarDetail] = useState<CarDetailInfo>();
 
   const {
     control,
@@ -39,8 +42,51 @@ function Reservation() {
   });
 
   const startDateWatch = watch("startDate");
+  const endDateWatch = watch("endDate");
 
-  const onSubmit: SubmitHandler<ReservationInput> = (data) => console.log(data);
+  const onSubmit: SubmitHandler<ReservationInput> = (data) => {
+    fetch(`http://localhost:8080/api/cars/${id}/reservation`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: prepareRequest(data),
+    })
+      .then((res) => res.json())
+      .then((data) => console.log(data));
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/cars/${id}`)
+      .then((res) => res.json())
+      .then((data) => setCarDetail(data));
+  }, []);
+
+  const calcTotalPrice = (price: Price, startDate: Date, endDate: Date) => {
+    const numberOfDays =
+      startDate.getDate() == endDate.getDate()
+        ? 1
+        : endDate.getDate() - startDate.getDate();
+
+    switch (numberOfDays) {
+      case 1:
+        return price.forDay;
+      case 2:
+      case 3:
+      case 4:
+        return price.forTwoToFourDays * numberOfDays;
+      default:
+        return price.forWeek * numberOfDays;
+    }
+  };
+
+  const prepareRequest = (data: ReservationInput) => {
+    return JSON.stringify(data);
+  };
+
+  const today = new Date();
+  const yesterday = new Date(today.getDate() - 1);
 
   return (
     <Container className="p-4">
@@ -91,7 +137,7 @@ function Reservation() {
                               field.onChange(e);
                               setValue("endDate", e!);
                             }}
-                            disabled={(date) => date < new Date()}
+                            disabled={(date) => date < yesterday}
                             initialFocus
                             required
                           />
@@ -158,7 +204,7 @@ function Reservation() {
               </div>
               <Form.Control asChild>
                 <TextFieldInput
-                  {...register("firstName", { required: true })}
+                  {...register("firstName")}
                   placeholder="John"
                   required
                 />
@@ -175,7 +221,11 @@ function Reservation() {
                 </Form.Message>
               </div>
               <Form.Control asChild>
-                <TextFieldInput placeholder="Doe" required />
+                <TextFieldInput
+                  {...register("lastName")}
+                  placeholder="Doe"
+                  required
+                />
               </Form.Control>
             </Form.Field>
             <Form.Field className="FormField" name="email">
@@ -196,6 +246,7 @@ function Reservation() {
               </div>
               <Form.Control asChild>
                 <TextFieldInput
+                  {...register("email")}
                   placeholder="john@doe.com"
                   type="email"
                   required
@@ -213,9 +264,25 @@ function Reservation() {
                 </Form.Message>
               </div>
               <Form.Control asChild>
-                <TextFieldInput placeholder="123456789" required />
+                <TextFieldInput
+                  {...register("phoneNumber")}
+                  placeholder="123456789"
+                  required
+                />
               </Form.Control>
             </Form.Field>
+            <div className="flex flex-col justify-center items-center">
+              <p className="font-light text-sm">Total price</p>
+              <p className="">
+                {carDetail &&
+                  calcTotalPrice(
+                    carDetail.price,
+                    startDateWatch,
+                    endDateWatch
+                  )}{" "}
+                PLN
+              </p>
+            </div>
             <Form.Submit asChild>
               <Button>Reserve</Button>
             </Form.Submit>

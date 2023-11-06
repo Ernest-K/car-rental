@@ -17,7 +17,7 @@ public class ReservationRequest {
     @FutureOrPresent(message = "Start date is not valid")
     private LocalDate startDate;
 
-    @Future(message = "End date is not valid")
+    @FutureOrPresent(message = "End date is not valid")
     private LocalDate endDate;
 
     @Size(max = 30, message = "First name is too long (max 30 characters)")
