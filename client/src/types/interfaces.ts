@@ -34,3 +34,20 @@ export interface CarDetail {
   price: Price;
   category: Category;
 }
+
+export interface Driver {
+  id: number;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+}
+
+export interface Reservation {
+  id: number;
+  startDate: Date;
+  endDate: Date;
+  car: Car;
+  driver: Driver;
+  cost: number;
+}

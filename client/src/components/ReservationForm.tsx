@@ -52,16 +52,15 @@ function ReservationForm({
         "Content-Type": "application/json",
       },
       body: prepareReservationRequest(data),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+    }).then((res) => {
+      if (res.ok) {
         toast({
           title: "Reservation",
           description: "Your reservation has been processed successfully",
         });
         onSuccessfulPost();
-      });
+      }
+    });
   };
 
   return (
