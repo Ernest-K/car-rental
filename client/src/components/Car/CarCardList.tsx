@@ -1,8 +1,8 @@
-import { CarInfo } from "../../types/interfaces";
+import { Car } from "../../types/interfaces";
 import CarCard from "./CarCard";
 
 interface CarCardListProps {
-  cars: CarInfo[];
+  cars: Car[];
 }
 
 function CarCardList({ cars }: CarCardListProps) {

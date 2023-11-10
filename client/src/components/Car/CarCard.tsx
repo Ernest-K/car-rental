@@ -1,5 +1,5 @@
 import { AspectRatio, Button, Card } from "@radix-ui/themes";
-import { CarInfo } from "../../types/interfaces";
+import { Car } from "../../types/interfaces";
 import {
   CheckCircledIcon,
   CrossCircledIcon,
@@ -9,7 +9,7 @@ import { Link } from "react-router-dom";
 import carImg from "../../assets/example.jpg";
 
 interface CarCardProps {
-  data: CarInfo;
+  data: Car;
 }
 
 function CarCard({ data }: CarCardProps) {
