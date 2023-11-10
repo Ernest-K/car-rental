@@ -1,11 +1,11 @@
 import { Container } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
-import { CarInfo, Category } from "../types/interfaces";
-import CarCardList from "../components/Car/CarCardList";
-import CarFilters from "../components/Car/CarFilters";
+import { Car, Category } from "../types/interfaces";
+import CarCardList from "../components/car/CarCardList";
+import CarFilters from "../components/car/CarFilters";
 
 function Home() {
-  const [cars, setCars] = useState<CarInfo[]>([]);
+  const [cars, setCars] = useState<Car[]>([]);
   const [onlyAvailable, setOnlyAvailable] = useState<boolean>(false);
   const [selectedCategories, setSelectedCategories] = useState<Category[]>([]);
 

@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
-import { CarDetailInfo } from "../../types/interfaces";
+import { CarDetail } from "../../types/interfaces";
 import { AspectRatio, Button, Container, Table } from "@radix-ui/themes";
 import ParameterTile from "../../components/ParameterTile";
 import carImg from "../../assets/example.jpg";
@@ -8,7 +8,7 @@ import { ArrowLeftIcon } from "@radix-ui/react-icons";
 
 function Detail() {
   const { id } = useParams();
-  const [car, setCar] = useState<CarDetailInfo>();
+  const [car, setCar] = useState<CarDetail>();
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/cars/${id}`)

@@ -1,6 +1,6 @@
 import { driveType, fuelType, statusType, transmissionType } from "./types";
 
-export interface CarInfo {
+export interface Car {
   id: number;
   status: statusType;
   make: string;
@@ -21,7 +21,7 @@ export interface Category {
   name: string;
 }
 
-export interface CarDetailInfo {
+export interface CarDetail {
   id: number;
   status: statusType;
   make: string;
