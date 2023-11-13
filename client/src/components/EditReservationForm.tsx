@@ -7,34 +7,52 @@ import {
   FormLabel,
   FormMessage,
 } from "./ui/form";
+import { Reservation } from "@/types/interfaces";
+import { useEffect, useState } from "react";
+import { ReservationInput } from "@/types/types";
+import { useNavigate, useParams } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
+import { Button } from "@radix-ui/themes";
 import { cn } from "@/lib/utils";
 import { format } from "date-fns";
 import { CalendarIcon } from "@radix-ui/react-icons";
 import { Calendar } from "./ui/calendar";
 import { Input } from "./ui/input";
-import { ReservationInput } from "@/types/types";
 import { calcTotalPrice, prepareReservationRequest } from "@/utils";
-import { Price } from "@/types/interfaces";
-import { Button } from "@radix-ui/themes";
 import { toast } from "./ui/use-toast";
 
-interface ReservationFormProps {
-  carId: number;
-  carPrice: Price;
-  onSuccessfulPost: () => void;
-}
+function EditReservationForm() {
+  const { id } = useParams();
+  const navigate = useNavigate();
+  const [reservation, setReservation] = useState<Reservation>();
 
-function ReservationForm({
-  carId,
-  carPrice,
-  onSuccessfulPost,
-}: ReservationFormProps) {
-  const today = new Date();
+  useEffect(() => {
+    fetch(`http://localhost:8080/api/reservations/${id}`)
+      .then((res) => {
+        if (res.ok) {
+          return res.json();
+        }
+      })
+      .then((data: Reservation) => {
+        setReservation(data);
+        setValues(data);
+      });
+  }, [id]);
+
+  const setValues = (reservation: Reservation) => {
+    form.setValue("startDate", new Date(reservation.startDate));
+    form.setValue("endDate", new Date(reservation.endDate));
+    form.setValue("firstName", reservation.driver.firstName);
+    form.setValue("lastName", reservation.driver.lastName);
+    form.setValue("email", reservation.driver.email);
+    form.setValue("firstName", reservation.driver.firstName);
+    form.setValue("phoneNumber", reservation.driver.phoneNumber);
+  };
+
   const form = useForm<ReservationInput>({
     defaultValues: {
-      startDate: today,
-      endDate: today,
+      startDate: new Date(),
+      endDate: new Date(),
       firstName: "",
       lastName: "",
       email: "",
@@ -46,21 +64,31 @@ function ReservationForm({
   const endDateWatch = form.watch("endDate");
 
   const onSubmit: SubmitHandler<ReservationInput> = (data) => {
-    fetch(`http://localhost:8080/api/cars/${carId}/reservation`, {
-      method: "POST",
+    fetch(`http://localhost:8080/api/reservations/${id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
       body: prepareReservationRequest(data),
-    }).then((res) => {
-      if (res.ok) {
+    })
+      .then((res) => {
+        if (res.ok) {
+          toast({
+            title: "Reservation",
+            description: "Reservation update has been processed successfully",
+          });
+          navigate("/dashboard");
+        } else {
+          return res.json();
+        }
+      })
+      .then((data) => {
         toast({
+          variant: "destructive",
           title: "Reservation",
-          description: "Your reservation has been processed successfully",
+          description: data.errors.join(", "),
         });
-        onSuccessfulPost();
-      }
-    });
+      });
   };
 
   return (
@@ -101,7 +129,7 @@ function ReservationForm({
                       onSelect={(e) => {
                         if (e && endDateWatch.getTime() < e.getTime()) {
                           field.onChange(e);
-                          form.setValue("endDate", e!);
+                          form.setValue("endDate", e);
                         } else {
                           field.onChange(e);
                         }
@@ -229,12 +257,7 @@ function ReservationForm({
             <FormItem>
               <FormLabel>Phone number</FormLabel>
               <FormControl>
-                <Input
-                  maxLength={9}
-                  placeholder="123456789"
-                  // pattern="\d*"
-                  {...field}
-                />
+                <Input maxLength={9} placeholder="123456789" {...field} />
               </FormControl>
               <FormMessage className="font-normal" />
             </FormItem>
@@ -243,14 +266,19 @@ function ReservationForm({
         <div className="flex flex-col justify-center items-center">
           <p className="font-light text-sm">Total price</p>
           <p className="">
-            {carPrice && calcTotalPrice(carPrice, startDateWatch, endDateWatch)}{" "}
+            {reservation &&
+              calcTotalPrice(
+                reservation.car.price,
+                startDateWatch,
+                endDateWatch
+              )}{" "}
             PLN
           </p>
         </div>
-        <Button type="submit">Reserve</Button>
+        <Button type="submit">Save</Button>
       </form>
     </Form>
   );
 }
 
-export default ReservationForm;
+export default EditReservationForm;

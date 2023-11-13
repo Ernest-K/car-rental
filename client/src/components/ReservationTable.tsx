@@ -3,6 +3,7 @@ import { Pencil2Icon, TrashIcon } from "@radix-ui/react-icons";
 import { Button, Table } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { toast } from "./ui/use-toast";
+import { Link } from "react-router-dom";
 
 function ReservationTable() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
@@ -62,7 +63,9 @@ function ReservationTable() {
             <Table.Cell>
               <div className="w-full flex justify-evenly">
                 <Button size={"3"} variant="ghost">
-                  <Pencil2Icon width="16" height="16" />
+                  <Link to={`/dashboard/reservation/${reservation.id}/edit`}>
+                    <Pencil2Icon width="16" height="16" />
+                  </Link>
                 </Button>
                 <Button
                   size={"3"}

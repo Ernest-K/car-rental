@@ -82,6 +82,7 @@ public class ReservationServiceImpl implements ReservationService {
         driver.setEmail(reservationRequest.getEmail());
         driver.setPhoneNumber(reservationRequest.getPhoneNumber());
         reservation.setDriver(driver);
+        reservation.setCost(calculateCost(reservation.getCar().getPrice(), reservationRequest.getStartDate(), reservationRequest.getEndDate()));
 
         reservationRepository.save(reservation);
 

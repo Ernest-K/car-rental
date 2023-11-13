@@ -108,10 +108,10 @@ INSERT INTO cars (power, production_year, category_id, price_id, drive_type, fue
 
 -- Dodanie informacji o kierowcach
 INSERT INTO drivers (email, first_name, last_name, phone_number) VALUES
-  ('john@example.com', 'John', 'Doe', '123-456-789'),
-  ('jane@example.com', 'Jane', 'Smith', '987-654-321'),
-  ('james@example.com', 'James', 'Johnson', '555-123-456'),
-  ('emily@example.com', 'Emily', 'Brown', '555-987-654');
+  ('john@example.com', 'John', 'Doe', '123456789'),
+  ('jane@example.com', 'Jane', 'Smith', '987654321'),
+  ('james@example.com', 'James', 'Johnson', '555123456'),
+  ('emily@example.com', 'Emily', 'Brown', '555987654');
 
 -- Dodanie informacji o rezerwacjach
 INSERT INTO reservations (cost, start_date, end_date, car_id, driver_id) VALUES
