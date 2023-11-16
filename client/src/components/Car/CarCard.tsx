@@ -43,7 +43,7 @@ function CarCard({ data }: CarCardProps) {
       <p className="text-lg font-medium">{model}</p>
       <div className="flex justify-between items-center">
         <p className="text-sm">Category: </p>
-        <p className="capitalize">{category.name}</p>
+        <p className="capitalize">{category && category.name}</p>
       </div>
       <div className="flex justify-between items-center">
         <p className="text-sm">Price: </p>

@@ -59,7 +59,10 @@ function ReservationTable() {
             <Table.Cell>{reservation.endDate.toString()}</Table.Cell>
             <Table.Cell>{reservation.cost}</Table.Cell>
             <Table.Cell>{`${reservation.driver.firstName} ${reservation.driver.lastName}`}</Table.Cell>
-            <Table.Cell>{`${reservation.car.make} ${reservation.car.model}`}</Table.Cell>
+            <Table.Cell>
+              {reservation.car &&
+                `${reservation.car.make} ${reservation.car.model}`}
+            </Table.Cell>
             <Table.Cell>
               <div className="w-full flex justify-evenly">
                 <Button size={"3"} variant="ghost">

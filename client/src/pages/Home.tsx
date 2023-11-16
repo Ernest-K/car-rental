@@ -22,7 +22,7 @@ function Home() {
       } else {
         return selectedCategories
           .map((category) => category.name)
-          .includes(car.category.name);
+          .includes(car.category && car.category.name);
       }
     })
     .filter((car) => {
