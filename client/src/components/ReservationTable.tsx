@@ -76,7 +76,11 @@ function ReservationTable() {
                   color="red"
                   onClick={() => deleteReservation(reservation.id)}
                 >
-                  <TrashIcon width="16" height="16" />
+                  <TrashIcon
+                    width="16"
+                    height="16"
+                    className="cursor-pointer"
+                  />
                 </Button>
               </div>
             </Table.Cell>

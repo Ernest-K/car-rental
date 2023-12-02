@@ -11,3 +11,13 @@ export type ReservationInput = {
   email: string;
   phoneNumber: string;
 };
+
+export type EditReservationInput = {
+  startDate: Date;
+  endDate: Date;
+  firstName: string;
+  lastName: string;
+  email: string;
+  phoneNumber: string;
+  cost: number;
+};

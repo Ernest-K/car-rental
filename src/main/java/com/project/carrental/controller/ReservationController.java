@@ -1,6 +1,7 @@
 package com.project.carrental.controller;
 
 import com.project.carrental.dto.request.ReservationRequest;
+import com.project.carrental.dto.request.UpdateReservationRequest;
 import com.project.carrental.dto.response.ReservationResponse;
 import com.project.carrental.service.ReservationService;
 import jakarta.validation.Valid;
@@ -34,8 +35,8 @@ public class ReservationController {
     }
 
     @PutMapping("/reservations/{reservationId}")
-    public ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long reservationId, @RequestBody @Valid ReservationRequest reservationRequest){
-        return new ResponseEntity<>(reservationService.updateReservation(reservationId, reservationRequest), HttpStatus.OK);
+    public ResponseEntity<ReservationResponse> updateReservation(@PathVariable Long reservationId, @RequestBody @Valid UpdateReservationRequest updateReservationRequest){
+        return new ResponseEntity<>(reservationService.updateReservation(reservationId, updateReservationRequest), HttpStatus.OK);
     }
 
     @DeleteMapping("/reservations/{reservationId}")

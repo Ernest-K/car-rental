@@ -1,6 +1,7 @@
 package com.project.carrental.service.impl;
 
 import com.project.carrental.dto.request.ReservationRequest;
+import com.project.carrental.dto.request.UpdateReservationRequest;
 import com.project.carrental.dto.response.ReservationResponse;
 import com.project.carrental.mapper.ReservationMapper;
 import com.project.carrental.model.Car;
@@ -71,18 +72,18 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public ReservationResponse updateReservation(Long reservationId, ReservationRequest reservationRequest) {
+    public ReservationResponse updateReservation(Long reservationId, UpdateReservationRequest updateReservationRequest) {
         Reservation reservation = reservationRepository.findById(reservationId).orElseThrow(() -> new EntityNotFoundException("Reservation id: " + reservationId + " not found"));
         Driver driver = reservation.getDriver();
 
-        reservation.setStartDate(reservationRequest.getStartDate());
-        reservation.setEndDate(reservationRequest.getEndDate());
-        driver.setFirstName(reservationRequest.getFirstName());
-        driver.setLastName(reservationRequest.getLastName());
-        driver.setEmail(reservationRequest.getEmail());
-        driver.setPhoneNumber(reservationRequest.getPhoneNumber());
+        reservation.setStartDate(updateReservationRequest.getStartDate());
+        reservation.setEndDate(updateReservationRequest.getEndDate());
+        driver.setFirstName(updateReservationRequest.getFirstName());
+        driver.setLastName(updateReservationRequest.getLastName());
+        driver.setEmail(updateReservationRequest.getEmail());
+        driver.setPhoneNumber(updateReservationRequest.getPhoneNumber());
+        reservation.setCost(updateReservationRequest.getCost());
         reservation.setDriver(driver);
-        reservation.setCost(calculateCost(reservation.getCar().getPrice(), reservationRequest.getStartDate(), reservationRequest.getEndDate()));
 
         reservationRepository.save(reservation);
 

@@ -82,7 +82,11 @@ function CarTable() {
                   color="red"
                   onClick={() => deleteCar(car.id)}
                 >
-                  <TrashIcon width="16" height="16" />
+                  <TrashIcon
+                    width="16"
+                    height="16"
+                    className="cursor-pointer"
+                  />
                 </Button>
               </div>
             </Table.Cell>

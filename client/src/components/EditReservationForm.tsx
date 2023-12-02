@@ -9,7 +9,7 @@ import {
 } from "./ui/form";
 import { Reservation } from "@/types/interfaces";
 import { useEffect, useState } from "react";
-import { ReservationInput } from "@/types/types";
+import { EditReservationInput } from "@/types/types";
 import { useNavigate, useParams } from "react-router-dom";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Button } from "@radix-ui/themes";
@@ -47,9 +47,10 @@ function EditReservationForm() {
     form.setValue("email", reservation.driver.email);
     form.setValue("firstName", reservation.driver.firstName);
     form.setValue("phoneNumber", reservation.driver.phoneNumber);
+    form.setValue("cost", reservation.cost);
   };
 
-  const form = useForm<ReservationInput>({
+  const form = useForm<EditReservationInput>({
     defaultValues: {
       startDate: new Date(),
       endDate: new Date(),
@@ -57,13 +58,14 @@ function EditReservationForm() {
       lastName: "",
       email: "",
       phoneNumber: "",
+      cost: 0.0,
     },
   });
 
   const startDateWatch = form.watch("startDate");
   const endDateWatch = form.watch("endDate");
 
-  const onSubmit: SubmitHandler<ReservationInput> = (data) => {
+  const onSubmit: SubmitHandler<EditReservationInput> = (data) => {
     fetch(`http://localhost:8080/api/reservations/${id}`, {
       method: "PUT",
       headers: {
@@ -263,18 +265,39 @@ function EditReservationForm() {
             </FormItem>
           )}
         />
-        <div className="flex flex-col justify-center items-center">
-          <p className="font-light text-sm">Total price</p>
-          <p className="">
-            {reservation &&
-              calcTotalPrice(
+        <FormField
+          control={form.control}
+          name="cost"
+          rules={{
+            required: {
+              value: true,
+              message: "Please enter your cost",
+            },
+          }}
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Cost</FormLabel>
+              <FormControl>
+                <Input placeholder="21.37" {...field} />
+              </FormControl>
+              <FormMessage className="font-normal" />
+            </FormItem>
+          )}
+        />
+        {reservation?.car && (
+          <div className="flex flex-col justify-center items-center">
+            <p className="font-light text-sm">Total price</p>
+            <p className="">
+              {calcTotalPrice(
                 reservation.car.price,
                 startDateWatch,
                 endDateWatch
               )}{" "}
-            PLN
-          </p>
-        </div>
+              PLN
+            </p>
+          </div>
+        )}
+
         <Button type="submit">Save</Button>
       </form>
     </Form>
