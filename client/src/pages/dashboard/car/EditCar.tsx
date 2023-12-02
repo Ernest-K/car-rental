@@ -16,7 +16,7 @@ function EditCar() {
           Back to dashboard
         </Link>
       </Button>
-      <div className="sm:grid gap-5 grid-cols-1 md:grid-cols-3 py-4">
+      <div className="sm:grid gap-5 grid-cols-1 md:px-20 py-4">
         <EditCarForm />
       </div>
     </Container>

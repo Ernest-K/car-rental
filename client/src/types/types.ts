@@ -21,3 +21,18 @@ export type EditReservationInput = {
   phoneNumber: string;
   cost: number;
 };
+
+export type EditCarInput = {
+  status: statusType;
+  make: string;
+  model: string;
+  productionYear: number;
+  power: number;
+  fuelType: fuelType;
+  transmissionType: transmissionType;
+  driveType: driveType;
+  priceForDay: number;
+  priceForTwoToFourDays: number;
+  priceForWeek: number;
+  categoryId: number;
+};

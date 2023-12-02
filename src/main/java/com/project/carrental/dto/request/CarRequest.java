@@ -50,16 +50,16 @@ public class CarRequest {
     private String driveType;
 
     @Min(0)
-    @NotNull(message = "Price per dey is required")
-    private BigDecimal pricePerDay;
+    @NotNull(message = "Price for day is required")
+    private BigDecimal priceForDay;
 
     @Min(0)
     @NotNull(message = "Price for two to four days is required")
     private BigDecimal priceForTwoToFourDays;
 
     @Min(0)
-    @NotNull(message = "Price per week is required")
-    private BigDecimal pricePerWeek;
+    @NotNull(message = "Price for week is required")
+    private BigDecimal priceForWeek;
 
     @NotNull(message = "Category id is required")
     private Long categoryId;
