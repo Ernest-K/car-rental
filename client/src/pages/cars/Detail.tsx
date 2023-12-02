@@ -47,7 +47,9 @@ function Detail() {
             <span className="font-medium">{car.make}</span> {car.model}
           </p>
           <div className="flex flex-wrap gap-5 mt-3">
-            <ParameterTile label="Category" value={car.category.name} />
+            {car.category && (
+              <ParameterTile label="Category" value={car.category.name} />
+            )}
             <ParameterTile
               label="Production year"
               value={car.productionYear!}

@@ -36,3 +36,7 @@ export type EditCarInput = {
   priceForWeek: number;
   categoryId: number;
 };
+
+export type EditCategoryInput = {
+  name: string;
+};

@@ -6,6 +6,7 @@ import Reservation from "./pages/cars/Reservation";
 import Dashboard from "./pages/dashboard/Dashboard";
 import EditReservation from "./pages/dashboard/reservation/EditReservation";
 import EditCar from "./pages/dashboard/car/EditCar";
+import EditCategory from "./pages/dashboard/category/EditCategory";
 
 function App() {
   return (
@@ -23,7 +24,10 @@ function App() {
           <Route path="dashboard/car/create" element={<Dashboard />} />
           <Route path="dashboard/car/:id/edit" element={<EditCar />} />
           <Route path="dashboard/category/:id/add" element={<Dashboard />} />
-          <Route path="dashboard/category/:id/edit" element={<Dashboard />} />
+          <Route
+            path="dashboard/category/:id/edit"
+            element={<EditCategory />}
+          />
         </Route>
       </Routes>
     </BrowserRouter>

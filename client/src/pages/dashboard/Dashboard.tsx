@@ -1,4 +1,5 @@
 import CarTable from "@/components/CarTable";
+import CategoryTable from "@/components/CategoryTable";
 import ReservationTable from "@/components/ReservationTable";
 import { Container, Tabs } from "@radix-ui/themes";
 
@@ -17,6 +18,9 @@ function Dashboard() {
         </Tabs.Content>
         <Tabs.Content value="cars">
           <CarTable />
+        </Tabs.Content>
+        <Tabs.Content value="categories">
+          <CategoryTable />
         </Tabs.Content>
       </Tabs.Root>
     </Container>
