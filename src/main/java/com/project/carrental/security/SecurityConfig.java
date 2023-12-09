@@ -12,6 +12,8 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.web.cors.CorsConfiguration;
@@ -29,15 +31,15 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((authorize) -> authorize
-//                        .requestMatchers(antMatcher(HttpMethod.POST, "/api/cars")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/cars/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/cars/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.POST, "/api/categories")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/categories/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/categories/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.GET, "/api/reservations/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/reservations/**")).hasAnyRole("ADMIN")
-//                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/reservations/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/api/cars")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/cars/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/cars/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.POST, "/api/categories")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/categories/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/categories/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.GET, "/api/reservations/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.PUT, "/api/reservations/**")).hasAnyRole("ADMIN")
+                        .requestMatchers(antMatcher(HttpMethod.DELETE, "/api/reservations/**")).hasAnyRole("ADMIN")
                         .anyRequest().permitAll()
                 )
                 .sessionManagement(sessionManagement -> sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -50,13 +52,20 @@ public class SecurityConfig {
 
     @Bean
     public UserDetailsService userDetailsService() {
-        UserDetails userDetails = User.withDefaultPasswordEncoder()
+        UserDetails userDetails =
+//                User.withDefaultPasswordEncoder()
+                User.builder()
                 .username("admin")
-                .password("admin")
+                .password(passwordEncoder().encode("admin"))
                 .roles("ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(userDetails);
+    }
+
+    @Bean
+    public PasswordEncoder passwordEncoder(){
+        return new BCryptPasswordEncoder();
     }
 
     @Bean
