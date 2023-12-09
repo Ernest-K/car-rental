@@ -40,3 +40,8 @@ export type EditCarInput = {
 export type EditCategoryInput = {
   name: string;
 };
+
+export type User = {
+  username: string;
+  password: string;
+};

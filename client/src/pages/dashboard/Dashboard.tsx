@@ -1,11 +1,37 @@
 import CarTable from "@/components/CarTable";
 import CategoryTable from "@/components/CategoryTable";
 import ReservationTable from "@/components/ReservationTable";
-import { Container, Tabs } from "@radix-ui/themes";
+import useAuth from "@/hooks/useAuth";
+import { ExitIcon } from "@radix-ui/react-icons";
+import { Button, Container, Tabs } from "@radix-ui/themes";
+import { Link, Navigate } from "react-router-dom";
 
 function Dashboard() {
+  const { isLogged, logout } = useAuth();
+
+  if (!isLogged()) {
+    return <Navigate to={"/auth/login"} />;
+  }
+
   return (
     <Container>
+      <div className="flex justify-end px-5 py-3">
+        <Button
+          asChild
+          variant="solid"
+          onClick={logout}
+          className="flex justify-center items-center"
+        >
+          <Link
+            to={"/auth/login"}
+            relative="path"
+            className="flex items-center gap-1"
+          >
+            Logout
+            <ExitIcon />
+          </Link>
+        </Button>
+      </div>
       <Tabs.Root defaultValue="reservations">
         <Tabs.List>
           <Tabs.Trigger value="reservations">Reservations</Tabs.Trigger>

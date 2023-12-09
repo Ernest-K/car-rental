@@ -4,11 +4,18 @@ import { Button, Table } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { toast } from "./ui/use-toast";
 import { Link } from "react-router-dom";
+import useAuth from "@/hooks/useAuth";
 
 function ReservationTable() {
   const [reservations, setReservations] = useState<Reservation[]>([]);
+  const { getUser } = useAuth();
+
   useEffect(() => {
-    fetch("http://localhost:8080/api/reservations")
+    fetch("http://localhost:8080/api/reservations", {
+      headers: {
+        Authorization: `Basic ${getUser()}`,
+      },
+    })
       .then((res) => res.json())
       .then((data) => setReservations(data));
   }, []);

@@ -7,6 +7,7 @@ import Dashboard from "./pages/dashboard/Dashboard";
 import EditReservation from "./pages/dashboard/reservation/EditReservation";
 import EditCar from "./pages/dashboard/car/EditCar";
 import EditCategory from "./pages/dashboard/category/EditCategory";
+import Login from "./pages/Login";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route index element={<Home />} />
           <Route path="cars/:id" element={<Detail />} />
           <Route path="cars/:id/reservation" element={<Reservation />} />
+          <Route path="auth/login" element={<Login />} />
           <Route path="dashboard/" element={<Dashboard />} />
           <Route
             path="dashboard/reservation/:id/edit"
