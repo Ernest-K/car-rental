@@ -36,7 +36,7 @@ public class Reservation {
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Car car;
 
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "driver_id", referencedColumnName = "id")
     private Driver driver;
 

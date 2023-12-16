@@ -19,9 +19,6 @@ import java.time.LocalDate;
 public class DatabaseInit {
 
     private final CarRepository carRepository;
-    private final CategoryRepository categoryRepository;
-    private final DriverRepository driverRepository;
-    private final PriceRepository priceRepository;
     private final ReservationRepository reservationRepository;
     private final ReservationService reservationService;
 
@@ -32,11 +29,9 @@ public class DatabaseInit {
                 .forDay(BigDecimal.valueOf(400.00))
                 .forTwoToFourDays(BigDecimal.valueOf(300.00))
                 .forWeek(BigDecimal.valueOf(100.00)).build();
-        priceRepository.save(price);
 
         Category category = Category.builder()
                 .name("Cabriolet").build();
-        categoryRepository.save(category);
 
         Car car = Car.builder()
                 .status(Status.AVAILABLE)
@@ -57,8 +52,6 @@ public class DatabaseInit {
                 .email("john@doe.com")
                 .phoneNumber("123456789")
                 .build();
-
-        driverRepository.save(driver);
 
         Reservation reservation = Reservation.builder()
                 .car(car)
