@@ -199,10 +199,25 @@ class CarServiceTest {
         Car car = createSampleCar();
         when(carRepository.findById(carId)).thenReturn(Optional.of(car));
 
-        carService.deleteCar(carId);
+        assertThatNoException().isThrownBy(() -> {
+            carService.deleteCar(carId);
+        });
 
         verify(carRepository, times(1)).findById(carId);
         verify(carRepository, times(1)).delete(car);
+    }
+
+    @Test
+    void deleteCarShouldThrowEntityNotFoundExceptionWhenWrongCarId() {
+        Long carId = 1L;
+        when(carRepository.findById(carId)).thenReturn(Optional.empty());
+
+        assertThatThrownBy(() -> {
+            carService.deleteCar(carId);
+        }).isInstanceOf(EntityNotFoundException.class);
+
+        verify(carRepository, times(1)).findById(carId);
+        verify(carRepository, never()).delete(any(Car.class));
     }
 
     private CarRequest createSampleCarRequest(){
