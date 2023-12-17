@@ -53,7 +53,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public CarDetailResponse createCar(CarRequest carRequest) {
-        Category category = categoryRepository.findById(carRequest.getCategoryId()).get();
+        Category category = categoryRepository.findById(carRequest.getCategoryId()).orElseThrow(() -> new EntityNotFoundException("Category id: " + carRequest.getCategoryId() + " not found"));
 
         Price price = Price.builder()
                 .forDay(carRequest.getPriceForDay())
