@@ -23,7 +23,7 @@ import {
 import { toast } from "./ui/use-toast";
 import useAuth from "@/hooks/useAuth";
 
-function EditCarForm() {
+function AddCarForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [categories, setCategories] = useState<Category[]>([]);
@@ -402,7 +402,7 @@ function EditCarForm() {
           />
 
           <Button className="w-full !mt-5" type="submit">
-            Save
+            Add
           </Button>
         </div>
       </form>
@@ -410,4 +410,4 @@ function EditCarForm() {
   );
 }
 
-export default EditCarForm;
+export default AddCarForm;

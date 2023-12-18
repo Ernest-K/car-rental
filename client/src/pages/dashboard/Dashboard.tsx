@@ -55,7 +55,7 @@ function Dashboard() {
                 relative="path"
                 className="flex items-center gap-1"
               >
-                Add car
+                Add
                 <PlusIcon />
               </Link>
             </Button>
@@ -63,6 +63,22 @@ function Dashboard() {
         </Tabs.Content>
         <Tabs.Content value="categories">
           <CategoryTable />
+          <div className="flex justify-end px-3 pb-3">
+            <Button
+              asChild
+              variant="soft"
+              className="flex justify-center items-center"
+            >
+              <Link
+                to={"/dashboard/category/add"}
+                relative="path"
+                className="flex items-center gap-1"
+              >
+                Add
+                <PlusIcon />
+              </Link>
+            </Button>
+          </div>
         </Tabs.Content>
       </Tabs.Root>
     </Container>

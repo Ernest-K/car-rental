@@ -9,6 +9,7 @@ import EditCar from "./pages/dashboard/car/EditCar";
 import EditCategory from "./pages/dashboard/category/EditCategory";
 import Login from "./pages/Login";
 import AddCar from "./pages/dashboard/car/AddCar";
+import AddCategory from "./pages/dashboard/category/AddCategory";
 
 function App() {
   return (
@@ -26,7 +27,7 @@ function App() {
           />
           <Route path="dashboard/car/add" element={<AddCar />} />
           <Route path="dashboard/car/:id/edit" element={<EditCar />} />
-          <Route path="dashboard/category/add" element={<Dashboard />} />
+          <Route path="dashboard/category/add" element={<AddCategory />} />
           <Route
             path="dashboard/category/:id/edit"
             element={<EditCategory />}

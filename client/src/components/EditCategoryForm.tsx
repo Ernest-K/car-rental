@@ -14,13 +14,11 @@ import {
 import { Input } from "./ui/input";
 import { Button } from "@radix-ui/themes";
 import { toast } from "./ui/use-toast";
-import useAuth from "@/hooks/useAuth";
 
-function EditCarForm() {
+function EditCategoryForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [category, setCategory] = useState<Category>();
-  const { getUser } = useAuth();
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/categories`)
@@ -51,7 +49,6 @@ function EditCarForm() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        Authorization: `Basic ${getUser()}`,
       },
       body: JSON.stringify(data),
     })
@@ -111,4 +108,4 @@ function EditCarForm() {
   );
 }
 
-export default EditCarForm;
+export default EditCategoryForm;
