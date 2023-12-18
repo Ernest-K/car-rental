@@ -9,9 +9,11 @@ import { Button, Table } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "./ui/use-toast";
+import useAuth from "@/hooks/useAuth";
 
 function CarTable() {
   const [cars, setCars] = useState<Car[]>([]);
+  const { getUser } = useAuth();
 
   useEffect(() => {
     fetch("http://localhost:8080/api/cars")
@@ -22,6 +24,9 @@ function CarTable() {
   const deleteCar = (id: number) => {
     fetch(`http://localhost:8080/api/cars/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Basic ${getUser()}`,
+      },
     })
       .then((res) => {
         if (res.ok) {

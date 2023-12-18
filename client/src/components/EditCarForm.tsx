@@ -21,12 +21,14 @@ import {
   SelectValue,
 } from "./ui/select";
 import { toast } from "./ui/use-toast";
+import useAuth from "@/hooks/useAuth";
 
 function EditCarForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [carDetail, setCarDetail] = useState<CarDetail>();
   const [categories, setCategories] = useState<Category[]>([]);
+  const { getUser } = useAuth();
 
   useEffect(() => {
     fetch(`http://localhost:8080/api/cars/${id}`)
@@ -83,6 +85,7 @@ function EditCarForm() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Basic ${getUser()}`,
       },
       body: JSON.stringify(data),
     })
@@ -340,7 +343,7 @@ function EditCarForm() {
                     <FormLabel className="text">Category</FormLabel>
                     <Select
                       onValueChange={field.onChange}
-                      defaultValue={field.value.toString()}
+                      defaultValue={field.value?.toString()}
                     >
                       <FormControl>
                         <SelectTrigger>

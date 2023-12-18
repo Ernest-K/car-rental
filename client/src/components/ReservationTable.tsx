@@ -23,6 +23,9 @@ function ReservationTable() {
   const deleteReservation = (id: number) => {
     fetch(`http://localhost:8080/api/reservations/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Basic ${getUser()}`,
+      },
     })
       .then((res) => {
         if (res.ok) {

@@ -20,14 +20,20 @@ import { Calendar } from "./ui/calendar";
 import { Input } from "./ui/input";
 import { calcTotalPrice, prepareReservationRequest } from "@/utils";
 import { toast } from "./ui/use-toast";
+import useAuth from "@/hooks/useAuth";
 
 function EditReservationForm() {
   const { id } = useParams();
   const navigate = useNavigate();
   const [reservation, setReservation] = useState<Reservation>();
+  const { getUser } = useAuth();
 
   useEffect(() => {
-    fetch(`http://localhost:8080/api/reservations/${id}`)
+    fetch(`http://localhost:8080/api/reservations/${id}`, {
+      headers: {
+        Authorization: `Basic ${getUser()}`,
+      },
+    })
       .then((res) => {
         if (res.ok) {
           return res.json();
@@ -70,6 +76,7 @@ function EditReservationForm() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
+        Authorization: `Basic ${getUser()}`,
       },
       body: prepareReservationRequest(data),
     })

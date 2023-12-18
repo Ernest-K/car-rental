@@ -4,9 +4,11 @@ import { Button, Table } from "@radix-ui/themes";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { toast } from "./ui/use-toast";
+import useAuth from "@/hooks/useAuth";
 
 function CategoryTable() {
   const [categories, setCategories] = useState<Category[]>([]);
+  const { getUser } = useAuth();
 
   useEffect(() => {
     fetch("http://localhost:8080/api/categories")
@@ -17,6 +19,9 @@ function CategoryTable() {
   const deleteCategory = (id: number) => {
     fetch(`http://localhost:8080/api/categories/${id}`, {
       method: "DELETE",
+      headers: {
+        Authorization: `Basic ${getUser()}`,
+      },
     })
       .then((res) => {
         if (res.ok) {

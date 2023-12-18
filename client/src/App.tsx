@@ -8,6 +8,7 @@ import EditReservation from "./pages/dashboard/reservation/EditReservation";
 import EditCar from "./pages/dashboard/car/EditCar";
 import EditCategory from "./pages/dashboard/category/EditCategory";
 import Login from "./pages/Login";
+import AddCar from "./pages/dashboard/car/AddCar";
 
 function App() {
   return (
@@ -23,9 +24,9 @@ function App() {
             path="dashboard/reservation/:id/edit"
             element={<EditReservation />}
           />
-          <Route path="dashboard/car/create" element={<Dashboard />} />
+          <Route path="dashboard/car/add" element={<AddCar />} />
           <Route path="dashboard/car/:id/edit" element={<EditCar />} />
-          <Route path="dashboard/category/:id/add" element={<Dashboard />} />
+          <Route path="dashboard/category/add" element={<Dashboard />} />
           <Route
             path="dashboard/category/:id/edit"
             element={<EditCategory />}
