@@ -56,8 +56,6 @@ public class ReservationServiceImpl implements ReservationService {
                 .phoneNumber(reservationRequest.getPhoneNumber())
                 .build();
 
-        driverRepository.save(driver);
-
         Reservation reservation = Reservation.builder()
                 .startDate(reservationRequest.getStartDate())
                 .endDate(reservationRequest.getEndDate())

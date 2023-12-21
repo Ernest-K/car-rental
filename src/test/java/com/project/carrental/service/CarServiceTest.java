@@ -13,7 +13,6 @@ import com.project.carrental.model.enums.Status;
 import com.project.carrental.model.enums.TransmissionType;
 import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.CategoryRepository;
-import com.project.carrental.repository.PriceRepository;
 import com.project.carrental.service.impl.CarServiceImpl;
 import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
@@ -41,9 +40,6 @@ class CarServiceTest {
     private CategoryRepository categoryRepository;
 
     @Mock
-    private PriceRepository priceRepository;
-
-    @Mock
     private CarMapper carMapper;
 
     @InjectMocks
@@ -56,7 +52,7 @@ class CarServiceTest {
         when(carRepository.findById(carId)).thenReturn(Optional.of(car));
         when(carMapper.carToCarDetailResponse(any(Car.class))).thenReturn(new CarDetailResponse());
 
-        CarDetailResponse carDetailResponse = carService.getCarDetailById(1L);
+        CarDetailResponse carDetailResponse = carService.getCarDetailById(carId);
 
         assertThat(carDetailResponse).isNotNull();
         verify(carRepository, times(1)).findById(carId);
@@ -65,11 +61,11 @@ class CarServiceTest {
 
     @Test
     void getCarDetailByIdShouldThrowEntityNotFoundException() {
-        Long carId = 2L;
+        Long carId = 1L;
         when(carRepository.findById(carId)).thenReturn(Optional.empty());
 
         assertThatThrownBy(() -> {
-            CarDetailResponse carDetailResponse = carService.getCarDetailById(2L);
+            CarDetailResponse carDetailResponse = carService.getCarDetailById(carId);
         }).isInstanceOf(EntityNotFoundException.class);
 
         verify(carRepository, times(1)).findById(carId);
@@ -110,15 +106,13 @@ class CarServiceTest {
         CarRequest carRequest = createSampleCarRequest();
         Category category = new Category();
         when(categoryRepository.findById(carRequest.getCategoryId())).thenReturn(Optional.of(category));
-        when(priceRepository.save(any())).thenReturn(new Price());
         when(carRepository.save(any())).thenReturn(new Car());
-        when(carMapper.carToCarDetailResponse(any())).thenReturn(new CarDetailResponse());
+        when(carMapper.carToCarDetailResponse(any(Car.class))).thenReturn(new CarDetailResponse());
 
         CarDetailResponse carDetailResponse = carService.createCar(carRequest);
 
         assertThat(carDetailResponse).isNotNull();
         verify(categoryRepository, times(1)).findById(carRequest.getCategoryId());
-        verify(priceRepository, times(1)).save(any(Price.class));
         verify(carRepository, times(1)).save(any(Car.class));
         verify(carMapper, times(1)).carToCarDetailResponse(any(Car.class));
     }
@@ -133,7 +127,6 @@ class CarServiceTest {
         }).isInstanceOf(EntityNotFoundException.class);
 
         verify(categoryRepository, times(1)).findById(carRequest.getCategoryId());
-        verifyNoInteractions(priceRepository);
         verifyNoInteractions(carRepository);
         verifyNoInteractions(carMapper);
     }

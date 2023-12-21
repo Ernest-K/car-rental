@@ -13,7 +13,6 @@ import com.project.carrental.model.enums.Status;
 import com.project.carrental.model.enums.TransmissionType;
 import com.project.carrental.repository.CarRepository;
 import com.project.carrental.repository.CategoryRepository;
-import com.project.carrental.repository.PriceRepository;
 import com.project.carrental.service.CarService;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +27,6 @@ public class CarServiceImpl implements CarService {
 
     private final CarRepository carRepository;
     private final CategoryRepository categoryRepository;
-    private final PriceRepository priceRepository;
     private final CarMapper carMapper;
 
     @Override
@@ -61,7 +59,7 @@ public class CarServiceImpl implements CarService {
                 .forWeek(carRequest.getPriceForWeek())
                 .build();
 
-        priceRepository.save(price);
+//        priceRepository.save(price);
 
         Car car = Car.builder()
                 .status(Status.valueOf(carRequest.getStatus().toUpperCase()))
