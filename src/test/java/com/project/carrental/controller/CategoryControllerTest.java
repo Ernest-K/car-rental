@@ -5,7 +5,6 @@ import com.project.carrental.dto.request.CategoryRequest;
 import com.project.carrental.model.Category;
 import com.project.carrental.service.impl.CategoryServiceImpl;
 import org.junit.jupiter.api.Test;
-import org.mockito.InjectMocks;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +16,6 @@ import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
 import java.util.List;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.mockito.Mockito.*;
 
@@ -36,7 +34,7 @@ class CategoryControllerTest {
 
     @Test
     void getCategoriesShouldReturnCategories() throws Exception {
-        List<Category> categories = List.of(createSampleCategory(), createSampleCategory());
+        List<Category> categories = List.of(createSampleCategory());
         when(categoryService.getCategories()).thenReturn(categories);
 
         mockMvc.perform(get("/api/categories"))
@@ -61,7 +59,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void createCategoryShouldThrowUnauthorizedException() throws Exception {
+    void createCategoryShouldReturnUnauthorized() throws Exception {
         ObjectMapper objectMapper = new ObjectMapper();
         CategoryRequest categoryRequest = new CategoryRequest("SUV");
         Category category = Category.builder().name("SUV").build();
@@ -92,7 +90,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void updateCategoryShouldThrowUnauthorizedException() throws Exception {
+    void updateCategoryShouldReturnUnauthorized() throws Exception {
         Long categoryId = 1L;
         CategoryRequest categoryRequest = new CategoryRequest("SUV");
         Category category = new Category(categoryId, "SUV");
@@ -119,7 +117,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    void deleteCategoryShouldThrowUnauthorizedException() throws Exception {
+    void deleteCategoryShouldReturnUnauthorized() throws Exception {
         Long categoryId = 1L;
 
         mockMvc.perform(delete("/api/categories/{categoryId}", categoryId))

@@ -228,7 +228,7 @@ class CarServiceTest {
         return Car.builder()
                 .status(Status.AVAILABLE)
                 .make("BMW")
-                .model("series 3")
+                .model("M3")
                 .productionYear(2006)
                 .power(343)
                 .fuelType(FuelType.PETROL)
