@@ -40,8 +40,7 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Override
     public List<ReservationResponse> getReservations() {
-        List<Reservation> reservations = reservationRepository.findAll();
-
+        List<Reservation> reservations = reservationRepository.findAllWithDriverAndCar();
         return reservations.stream().map(reservationMapper::reservationToReservationResponse).collect(Collectors.toList());
     }
 

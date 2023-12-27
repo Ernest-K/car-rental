@@ -38,7 +38,7 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public List<CarResponse> getCars() {
-        List<Car> cars = carRepository.findAll();
+        List<Car> cars = carRepository.findAllWithCategoryAndPrice();
 
         return cars.stream().map(carMapper::carToCarResponse).collect(Collectors.toList());
     }
