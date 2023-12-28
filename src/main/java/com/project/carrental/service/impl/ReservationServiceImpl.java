@@ -9,7 +9,6 @@ import com.project.carrental.model.Driver;
 import com.project.carrental.model.Price;
 import com.project.carrental.model.Reservation;
 import com.project.carrental.repository.CarRepository;
-import com.project.carrental.repository.DriverRepository;
 import com.project.carrental.repository.ReservationRepository;
 import com.project.carrental.service.ReservationService;
 import jakarta.persistence.EntityNotFoundException;
@@ -29,7 +28,6 @@ public class ReservationServiceImpl implements ReservationService {
     private final ReservationRepository reservationRepository;
     private final ReservationMapper reservationMapper;
     private final CarRepository carRepository;
-    private final DriverRepository driverRepository;
 
     @Override
     public ReservationResponse getReservationById(Long reservationId) {

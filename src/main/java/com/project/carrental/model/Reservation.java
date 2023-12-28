@@ -31,7 +31,7 @@ public class Reservation {
     @Temporal(TemporalType.DATE)
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "car_id", referencedColumnName = "id")
     @OnDelete(action = OnDeleteAction.SET_NULL)
     private Car car;

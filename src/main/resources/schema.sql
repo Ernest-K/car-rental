@@ -96,14 +96,14 @@ INSERT INTO categories (name) VALUES
 
 -- Dodanie informacji o samochodach
 INSERT INTO cars (power, production_year, category_id, price_id, drive_type, fuel_type, make, model, status, transmission_type) VALUES
-  (150, 2022, 1, 1, 'FRONT', 'PETROL', 'Toyota', 'Camry', 'UNAVAILABLE', 'AUTOMATIC'),
+  (150, 2022, 1, 1, 'FRONT', 'PETROL', 'Toyota', 'Camry', 'AVAILABLE', 'AUTOMATIC'),
   (120, 2020, 2, 2, 'REAR', 'DIESEL', 'Ford', 'Explorer', 'AVAILABLE', 'AUTOMATIC'),
   (130, 2021, 3, 3, 'FRONT', 'PETROL', 'Honda', 'Accord', 'AVAILABLE', 'AUTOMATIC'),
   (110, 2023, 4, 4, 'FRONT', 'HYBRID', 'Toyota', 'Prius', 'AVAILABLE', 'AUTOMATIC'),
   (160, 2022, 5, 5, 'ALL_WHEEL', 'PETROL', 'BMW', 'M4', 'AVAILABLE', 'AUTOMATIC'),
-  (140, 2020, 2, 6, 'ALL_WHEEL', 'DIESEL', 'Audi', 'Q5', 'UNAVAILABLE', 'AUTOMATIC'),
+  (140, 2020, 2, 6, 'ALL_WHEEL', 'DIESEL', 'Audi', 'Q5', 'AVAILABLE', 'AUTOMATIC'),
   (110, 2021, 1, 7, 'FRONT', 'PETROL', 'Nissan', 'Altima', 'AVAILABLE', 'AUTOMATIC'),
-  (95, 2022, 4, 8, 'FRONT', 'HYBRID', 'Toyota', 'Corolla', 'UNAVAILABLE', 'AUTOMATIC'),
+  (95, 2022, 4, 8, 'FRONT', 'HYBRID', 'Toyota', 'Corolla', 'AVAILABLE', 'AUTOMATIC'),
   (120, 2020, 5, 9, 'FRONT', 'PETROL', 'Mercedes-Benz', 'C-Class', 'AVAILABLE', 'AUTOMATIC');
 
 -- Dodanie informacji o kierowcach
@@ -115,7 +115,7 @@ INSERT INTO drivers (email, first_name, last_name, phone_number) VALUES
 
 -- Dodanie informacji o rezerwacjach
 INSERT INTO reservations (cost, start_date, end_date, car_id, driver_id) VALUES
-  (150.00, '2023-10-15', '2023-10-20', 1, 1),
+  (150.00, '2023-12-15', '2024-01-15', 1, 1),
   (180.00, '2023-11-01', '2023-11-05', 2, 2),
   (160.00, '2023-12-01', '2023-12-10', 3, 3),
   (140.00, '2023-10-20', '2023-10-25', 4, 4);

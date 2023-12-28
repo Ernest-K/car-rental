@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
 
 @RequiredArgsConstructor
 @Component
@@ -24,7 +25,6 @@ public class DatabaseInit {
 
     @PostConstruct
     private void init(){
-
         Price price = Price.builder()
                 .forDay(BigDecimal.valueOf(400.00))
                 .forTwoToFourDays(BigDecimal.valueOf(300.00))
@@ -62,5 +62,19 @@ public class DatabaseInit {
                 .build();
 
         reservationRepository.save(reservation);
+    }
+
+
+    @PostConstruct
+    private void setupAvailability(){
+        List<Reservation> reservations = reservationRepository.findAllWithDriverAndCar();
+        LocalDate now = LocalDate.now();
+        for (Reservation reservation: reservations) {
+            if(now.isAfter(reservation.getStartDate()) && now.isBefore(reservation.getEndDate())){
+                System.out.println(reservation.getCar().getMake());
+                reservation.getCar().setStatus(Status.UNAVAILABLE);
+                reservationRepository.save(reservation);
+            }
+        }
     }
 }
